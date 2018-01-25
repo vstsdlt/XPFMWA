@@ -1,0 +1,101 @@
+﻿@using (Form())
+{
+
+    @using (Panel(headingText: "Voluntary Plan Waiver", panelLayout: PanelLayout.Inline))
+    {
+        <p> You can apply for waiver from premiums if your organization participates in a voluntary plan that matches or exceeds the paid leavel benefits guaranteed in the WA PFML legislation.</p>
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, defaultLabelColumns: 0, defaultControlColumns: 12))
+        {
+            <h6>
+                Voluntary Plan Details
+            </h6>
+            @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, labelText: ""))
+            {
+                @Blank(labelText: "Dates the Voluntary Plan is available to employees in 2018")
+                @Blank(labelText: "From")
+                @TextBox(formatStyle: "MM/dd/yyyy", formatter: Formatter.Date, labelText: "", dataSource: "VPRequestForm.StartDate", placeholder: "MM/DD/YYYY")
+                @Blank(labelText: "to")
+                @TextBox(formatStyle: "MM/dd/yyyy", formatter: Formatter.Date, labelText: "", dataSource: "VPRequestForm.EndDate", placeholder: "MM/DD/YYYY")
+            }
+            @using (Panel(panelLayout: PanelLayout.Grid, defaultLabelColumns: 0, defaultControlColumns: 12))
+            {
+                <p>
+                    If the patient (care recipient) was treated at an address other than those shown below, navigate to your profile and add the treatment address. Once you have updated your treatment address repeat the same steps to return to this point to complete the form. You should only submit this form online if you have used your California medical license to treat the patient (care recipient).
+                </p>
+                @using (Panel(panelLayout: PanelLayout.Grid, borderVisible: false, defaultLabelColumns: 0, defaultControlColumns: 12))
+                {
+                    @Data(labelText: "Types of Leave available", labelColumns: 2, controlColumns: 2)
+                    @Data(labelText: "Weeks available anually", labelColumns: 2, controlColumns: 2)
+                    @Data(labelText: "Percentage of wage paid", labelColumns: 2, controlColumns: 1)
+
+                        @CheckBox(dataSource: "VPRequestForm.RequestType[0].LeaveTypeCode", caption: "Medical", labelColumns: 2, controlColumns: 2, checkedValue: LookupTable_WaiverLeaveType.Medical)
+                        @SelectBox(dataSource: "VPRequestForm.RequestType[0].DurationInWeeksCode", blankItemText: "select", lookupName: LookupTable.WaiverWeeksAvailable, labelColumns: 1, controlColumns: 3)
+                        @TextBox(dataSource: "VPRequestForm.RequestType[0].PercentagePaid", labelColumns: 1, controlColumns: 2, minValue: 0, maxValue: 100, formatter: Formatter.Number, maxLength: 6, formatDecimals: 2)
+                    
+
+                    
+                        @CheckBox(dataSource: "VPRequestForm.RequestType[1].LeaveTypeCode", caption: "Paternity- Birth Father", uncheckedValue: null, labelColumns: 2, controlColumns: 2, checkedValue: LookupTable_WaiverLeaveType.PaternityBirthFather)
+                        @SelectBox(dataSource: "VPRequestForm.RequestType[1].DurationInWeeksCode", blankItemText: "select", lookupName: LookupTable.WaiverWeeksAvailable, labelColumns: 1, controlColumns: 3)
+                        @TextBox(dataSource: "VPRequestForm.RequestType[1].PercentagePaid", labelColumns: 1, controlColumns: 2, minValue: 0, maxValue: 100, formatter: Formatter.Number, maxLength: 6, formatDecimals: 2)
+                    
+
+                    
+                        @CheckBox(dataSource: "VPRequestForm.RequestType[2].LeaveTypeCode", caption: "Paternity - Adoption", uncheckedValue: null, labelColumns: 2, controlColumns: 2, checkedValue: LookupTable_WaiverLeaveType.PaternityAdoption)
+                        @SelectBox(dataSource: "VPRequestForm.RequestType[2].DurationInWeeksCode", blankItemText: "select", lookupName: LookupTable.WaiverWeeksAvailable, labelColumns: 1, controlColumns: 3)
+                        @TextBox(dataSource: "VPRequestForm.RequestType[2].PercentagePaid", labelColumns: 1, controlColumns: 2, minValue: 0, maxValue: 100, formatter: Formatter.Number, maxLength: 6, formatDecimals: 2)
+                    
+
+                    
+                        @CheckBox(dataSource: "VPRequestForm.RequestType[3].LeaveTypeCode", caption: "Caregiver", uncheckedValue: null, labelColumns: 2, controlColumns: 2, checkedValue: LookupTable_WaiverLeaveType.Caregiver)
+                    @SelectBox(dataSource: "VPRequestForm.RequestType[3].DurationInWeeksCode", blankItemText: "select", lookupName: LookupTable.WaiverWeeksAvailable, labelColumns: 1, controlColumns: 3)
+                    @TextBox(dataSource: "VPRequestForm.RequestType[3].PercentagePaid", labelColumns: 1, controlColumns: 2, minValue: 0, maxValue: 100, formatter: Formatter.Number, maxLength: 6, formatDecimals: 2)
+                 }
+                    
+
+            }
+            @using (Panel(panelLayout: PanelLayout.Inline))
+            {
+                <p>
+                    <h6>
+                        Supporting Documentation
+                    </h6>
+                    <br />
+                    Please upload the leave policies showing evidence of the selection(s) above
+                </p>
+                @using (Panel(panelLayout: PanelLayout.Grid, defaultLabelColumns: 0, defaultControlColumns: 12, cssClass: "text-center"))
+                {
+                    @using (DataTable(dataSource: "VPRequestForm.Document", searchable: false, dataTableHeight: DataTableHeight.Full, recordCountInfo: false))
+                    {
+                        @DataTableColumn(columnName: "Document Name", dataSource: "DocumentName", width: 30)
+                        @DataTableColumn(columnName: "Document Description", dataSource: "DocumentDescription", width: 60)
+                        @DataTableColumn(columnName: "View", text: "View", width: 5)
+                        @DataTableColumn(columnName: "Delete", text: "Delete", width: 5)
+                    }
+                }
+                @Button(text: "UPLOAD DOCUMENT", transition: "Upload")
+            }
+            @using (Panel(panelLayout: PanelLayout.Inline))
+            {
+                <p>
+                    <h6>
+                        Acknowledgement
+                    </h6>
+
+                </p>
+                @CheckBox(labelText: "I acknowledge that submittions of this waiver application will cost my company $250, and is non-refundable regardless of the application outcome.", dataSource: "VPRequestForm.IsAcknolwedged")
+
+            }
+        }
+    }
+    <br />
+
+    @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+    {
+        @Button(text: "SAVE DRAFT", transition: "Submit", targetDataSource: "VPRequestForm.IsAcknolwedged")
+        @Button(text: "CANCEL", transition: "Cancel")
+        @Blank()
+        @Button(text: "PROGRESS TO PAYMENT SCREEN >", transition: "Submit")
+    }
+
+
+}

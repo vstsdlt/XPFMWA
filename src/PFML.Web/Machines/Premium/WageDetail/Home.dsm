@@ -1,0 +1,16 @@
+<Machine IsPublic="False" IsExternal="False" RequirePersonID="False" RequireAgencyID="False" StartState="GetEmpWageDetails">
+  <States>
+    <Operation Name="GetEmpWageDetails" Service="Premium.WageDetail.WageSubmission" Operation="GetEmpWageDetails" ResultProperty="WageUnitDetail">
+      <Transitions>
+        <State Name="Next" IsDefault="False" State="EmploymentWageDetailHome" />
+      </Transitions>
+    </Operation>
+    <Page Name="EmploymentWageDetailHome">
+      <Transitions>
+        <State Name="SubmitWage" IsDefault="False" IgnoreData="False" State="SubmitWage" />
+      </Transitions>
+    </Page>
+    <Transfer Name="SubmitWage" Machine="Premium.WageDetail.WageSubmission" OneWay="True" />
+  </States>
+  <Designer>Kj0iSXNSb3VuZGVkQ29ybmVycz1UcnVlCUJyaWRnZVR5cGU9Tm9uZSIAR2V0RW1wV2FnZURldGFpbHM9IkNvbG9yPSNGRjAwNzJDNglQb3NpdGlvbj01NjAsMTAwIgBHZXRFbXBXYWdlRGV0YWlscy5OZXh0PSJMaW5lVHlwZT1TdHJhaWdodAlTb3VyY2VDb25uZWN0b3I9YzcJU3RhcnRQb2ludD02MjAsMTgwCUVuZFBvaW50PTYyMCwyNjAJVGFyZ2V0Q29ubmVjdG9yPWMwIgBFbXBsb3ltZW50V2FnZURldGFpbEhvbWU9IkNvbG9yPSNGRjAwNzJDNglQb3NpdGlvbj01NjAsMjYwIgBFbXBsb3ltZW50V2FnZURldGFpbEhvbWUuU3VibWl0V2FnZT0iTGluZVR5cGU9U3RyYWlnaHQJU291cmNlQ29ubmVjdG9yPWM2CVN0YXJ0UG9pbnQ9NjIwLDM0MAlFbmRQb2ludD02MjAsNDIwCVRhcmdldENvbm5lY3Rvcj1jMCIAU3VibWl0V2FnZT0iQ29sb3I9I0ZGMDA3MkM2CVBvc2l0aW9uPTU2MCw0MjAi</Designer>
+</Machine>

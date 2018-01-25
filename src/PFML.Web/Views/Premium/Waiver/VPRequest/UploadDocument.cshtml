@@ -1,0 +1,11 @@
+﻿@using (Form())
+{
+	@using (Panel(headingText: "Upload Supporting Document", panelLayout: PanelLayout.Inline, modalStyle: ModalStyle.Large))
+	{
+		@TextBox(labelText: "Document Name:", dataSource: "DocumentName", required: "true", maxLength: 255);
+		@TextBox(labelText: "Document Description:", dataSource: "DocumentDescription", required: "true", maxLength: 500);
+		<br />
+		@Button(transition: "Next", text: "Upload", labelColumns: 0, controlColumns: 1)
+		@Button(transition: "Close", text: "Close", labelColumns: 1, controlColumns: 1)
+	}
+}

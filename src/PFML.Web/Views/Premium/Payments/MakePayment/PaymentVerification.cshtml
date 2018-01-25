@@ -1,0 +1,29 @@
+﻿@Html.Partial("EmployerHeaderWizard", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+@using (Form())
+{
+    @using (Panel(stateFilter: "PaymentVerification", headingText: "Payment Verification", defaultControlColumns: 4, defaultLabelColumns: 4))
+    {
+
+        @Data(labelText: "Due Dates:", dataSource: "PaymentDueDates", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelText: "Prepayment Due Dates:", dataSource: "PrepaymentDueDates", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelColumns: 4, controlColumns: 4)
+        <br />
+        <p>&nbsp;&nbsp;&nbsp; If payment is not submitted by the dates indicated, you will be assessed interest and / or penalties.</p>
+        @Data(labelText: "Total Payment Amount:", dataSource: "PmtAmount", cssClass: "bold", labelColumns: 4, controlColumns: 4, formatter: Formatter.Currency)
+        @Data(labelText: "Routing Transit Number:", dataSource: "MaskedTransitNumber", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelText: "Bank Account Number:", dataSource: "MaskedAccountNumber", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelText: "Account Type:", dataSource: "AccountType", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelText: "Payment Effective Date:", dataSource: "PaymentEffectiveDate", cssClass: "bold", labelColumns: 4, controlColumns: 4, formatter: Formatter.Date)
+        @Data(labelText: "Save Bank Information:", dataSource: "SaveBankInformationText", cssClass: "bold", labelColumns: 4, controlColumns: 4)
+        @Data(labelText: "", dataSource: "PmtVerificationMsg", labelColumns: 0, controlColumns: 10)
+        @using (Panel(stateFilter: "PaymentVerification", borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+            <br />
+            @Button(transition: "Previous", id: "btn_Previous", text: "Previous")
+            @Button(transition: "Cancel", id: "btn_Cancel", text: "Cancel")
+            @Button(transition: "Submit", id: "btn_Next", text: "Submit")
+        }
+    }
+}
+

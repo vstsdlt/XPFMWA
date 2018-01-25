@@ -1,0 +1,28 @@
+﻿@Html.Partial("EmployerHeaderWizard", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+
+@using (Form())
+{
+    @using (Panel(headingText: "Payment Method", stateFilter: "SelectPaymentMethod", defaultControlColumns: 4, defaultLabelColumns: 4))
+    {
+
+        @Data(labelText: "Payment Due Dates:", dataSource: "PaymentDueDates", controlColumns: 4, labelColumns: 4)
+        @Data(controlColumns: 4, labelColumns: 4)
+        <br />
+        <p>&nbsp;&nbsp;&nbsp; If payment is not submitted by the dates indicated, you will be assessed interest and / or penalties.</p>
+        @Data(labelText: "Amount Due:", id: "amountDue", dataSource: "AmountDue", formatter: Formatter.Currency, controlColumns: 4, labelColumns: 4, cssClass: "bold")
+        @Data(labelText: "Total:", dataSource: "TotalAmount", formatter: Formatter.Currency, cssClass: "bold", controlColumns: 4, labelColumns: 4)
+        @TextBox(labelText: "Payment Amount:", required: "true", dataSource: "PmtAmount", formatter: Formatter.Currency, maxValue: Convert.ToDecimal(Machine["TotalAmount"]), controlColumns: 4, labelColumns: 4, minValue: 0.01)
+        @SelectBox(labelText: "Payment Method:", dataSource: "CheckPaymentMethodType", lookupName: LookupTable.PaymentMethodType, required: "true", controlColumns: 4, labelColumns: 4)
+
+        @using (Panel(stateFilter: "SelectPaymentMethod", borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+            <br />
+            @Button(text: "Next", transition: "Next")
+        }
+    }
+}
+
+
+
+

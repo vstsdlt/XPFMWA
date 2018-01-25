@@ -1,0 +1,91 @@
+﻿
+@Html.Partial("WizardHeader", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+@using (Form())
+{
+    @using (Panel(stateFilter: "ManualEntry", panelLayout: PanelLayout.Stacked, borderVisible: false))
+    {
+        @using (Panel(stateFilter: "ManualEntry", headingText: "Reporting Information", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            @Data(labelText: "Employment and Wages Paid for the Quarter:", dataSource: "WageUnitDetail.ReportingQuarter", lookupName: LookupTable.Quarter, cssClass: "bold")
+
+            @Data(labelText: "Year:", dataSource: "WageUnitDetail.ReportingYear", cssClass: "bold")
+
+            @Data(labelText: "Submission Type:", dataSource: "WageUnitDetail.AdjReasonDisplay", formatter: Formatter.Currency, lookupName: LookupTable.WageDetailAdjReasonCode, cssClass: "bold")
+
+        }
+
+        @using (Panel(panelLayout: PanelLayout.Stacked, headingText: "Employment and Wage Detail Records", defaultControlColumns: 12, defaultLabelColumns: 0, controlColumns: 3, labelColumns: 0))
+        {
+            <ul>
+                <li>Enter employee information in space provided. If you have more than 25 employees and need to enter employee information across MULTIPLE pages, select <b>‘Add’</b>.</li>
+                <li>Click <b>‘Next’</b> after you have entered all of your quarterly employee information.</li>
+                <li><b style='color:red'>SSN, Wages and atleast one ‘Employment Month’ is mandatory.</b></li>
+                <li><b style='color:red'>Missing LastName, FirstName, Hours may create Claims issues for the employee. However, the record will be processed and included in calculations.</b></li>
+            </ul>
+            <hr />
+            <ul>
+                <li>If an adjustment to the Income Tax Amount Withheld of any employee results in an over/underpayment of your company's withholding tax, you must separately amend your withholding tax return(s) with the Taxation & Revenue Department (TRD). </li>
+            </ul>
+
+        }
+
+        @using (Panel(panelLayout: PanelLayout.Grid, headingText: "Wage Detail Records", defaultControlColumns: 12, defaultLabelColumns: 0))
+        {
+            @using (DataTable(dataSource: "WageUnitDetail.ListWageUnitDetailDto", dataTableHeight: DataTableHeight.Full, searchable: false, recordCountInfo: false, allowNewRow: false, showDeleteRow: false))
+            {
+                @DataTableColumn(columnName: "#", dataSource: "SrNo", width: 25)
+                @DataTableColumn(columnName: "SSN", dataSource: "Ssn", dataTableColumnType: DataTableColumnType.TextBox, width: 100, formatter: Formatter.Ssn)
+                @DataTableColumn(columnName: "Last Name", dataSource: "LastName", dataTableColumnType: DataTableColumnType.TextBox, width: 150, formatter: Formatter.TextAlpha,len)
+                @DataTableColumn(columnName: "First Name", dataSource: "FirstName", dataTableColumnType: DataTableColumnType.TextBox, width: 150, formatter: Formatter.TextAlpha)
+                @DataTableColumn(columnName: "MI", dataSource: "MiddleInitialName", dataTableColumnType: DataTableColumnType.TextBox, width: 50, formatter: Formatter.TextAlpha)
+                @DataTableColumn(columnName: "Unit #", dataSource: "EmployerUnitId", dataTableColumnType: DataTableColumnType.TextBox, formatter: Formatter.Number)
+                @DataTableColumn(columnName: "Occupation", dataSource: "Occupation", dataTableColumnType: DataTableColumnType.TextBox, formatter: Formatter.TextAlpha,looseValidation:true)
+                @DataTableColumn(columnName: "Hours", dataSource: "HoursWorked", formatter: Formatter.Number, formatDecimals: 2, dataTableColumnType: DataTableColumnType.TextBox)
+                @DataTableColumn(columnName: "Wages", dataSource: "WageAmount", formatter: Formatter.Currency, dataTableColumnType: DataTableColumnType.TextBox)
+                @DataTableColumn(columnName: "Employment Month 1", dataSource: "IsEmploymentMonth1", dataTableColumnType: DataTableColumnType.CheckBox, width: 15)
+                @DataTableColumn(columnName: "Employment Month 2", dataSource: "IsEmploymentMonth2", dataTableColumnType: DataTableColumnType.CheckBox, width: 15)
+                @DataTableColumn(columnName: "Employment Month 3", dataSource: "IsEmploymentMonth3", dataTableColumnType: DataTableColumnType.CheckBox, width: 15)
+                @DataTableColumn(columnName: "Owner", dataSource: "IsOwnerOrOfficer", dataTableColumnType: DataTableColumnType.CheckBox, width: 40)
+            }
+
+        }
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+            @Button(transition: "Previous", text: "Previous")
+            @Button(transition: "Next", text: "Next")
+            @Button(text: "Add")
+
+
+        }
+
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Grid, defaultControlColumns:4, defaultLabelColumns:4))
+        {
+
+            @RadioButtonGroup(labelText: "Does your company hire contractors", lookupName: LookupTable.BoolYesNo, lookupSort: "{DisplaySortOrder}", dataSource: "IsContractor", required: "true")
+
+        }
+
+        @*@using (Panel(stateFilter: "ManualEntry", panelLayout: PanelLayout.Grid, headingText: "Search Criteria"))
+            {
+                <ul>
+                    <li>To view a specific SSN or Last Name, enter the appropriate data and select ‘Search’ to continue.</li>
+
+                </ul>
+
+                @Data(labelText: "", controlColumns: 1, labelColumns: 1)
+                @TextBox(labelText: "SSN:", formatter: Formatter.Ssn, dataSource: "busademail", controlColumns: 2, labelColumns: 1)
+                @Data(labelText: "", controlColumns: 1, labelColumns: 0)
+                @TextBox(labelText: "Last Name:", formatter: Formatter.TextAlpha, dataSource: "busademail", controlColumns: 2, labelColumns: 1)
+            }*@
+
+        @*@using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center Main-Panel"))
+            {
+
+                @Button(text: "Search")
+                @Button(text: "Reset")
+
+
+            }*@
+    }
+}

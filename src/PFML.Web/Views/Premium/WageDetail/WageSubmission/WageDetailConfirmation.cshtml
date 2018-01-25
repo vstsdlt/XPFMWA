@@ -1,0 +1,19 @@
+﻿
+@using (Form())
+{
+    @using (Panel(stateFilter: "WageDetailConfirmation", panelLayout: PanelLayout.Stacked, borderVisible: false))
+    {
+        @using (Panel(panelLayout: PanelLayout.Stacked, headingText: "Employment and Wage Detail Report Submission Confirmation"))
+        {
+            <p>System displays: ‘You have successfully submitted an Employment and Wage Detail Report for Quarter <XX> of Year <XXXX>.</p>
+            <p>To make a payment now or set up a payment date for amounts due click on ‘Make Payment.</p>
+        }
+
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+
+            @Button(transition: "Payment", text: "Make Payment")
+            @Button(transition: "Home", text: "Home")
+        }
+    }
+}

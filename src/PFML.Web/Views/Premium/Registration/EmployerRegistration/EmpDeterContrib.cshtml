@@ -1,0 +1,40 @@
+﻿@Html.Partial("WizardHeader", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+@using (Form())
+{
+    @using (Panel(stateFilter: "EmpDeterContrib", panelLayout: PanelLayout.Stacked,borderVisible:false))
+    {
+        @using (Panel(headingText: "Registration Status", defaultControlColumns:4,defaultLabelColumns:4))
+        {
+            <p>This is confirmation of successful registration. Print a copy of this page for your records.</p>
+        }
+        @using (Panel(headingText: "Determination of Employer Status", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            //<p>Effective <b>@Machine["legalname"]</b>, this employer is subject to State Unemployment Compensation (UC) Law. This employer is required to submit quarterly Employment and Wage Detail reports and pay UC taxes on the wages paid to each of its covered employees.</p>
+            <p>Effective <b>@DateTime.Now.ToLongDateString()</b>, this employer is subject to State PFML law. This employer is required to submit quarterly Employment and Wage Detail reports and pay taxes on the wages paid to each of its covered employees.</p>
+        }
+        @using (Panel(headingText: "PFML Employer Account Number", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            @Data(labelText: "Legal Name:", dataSource: "EmployerRegistration.EmployerDto.EntityName", cssClass: "bold")
+            @Data(labelText: "Doing Business As (DBA) Name:", dataSource: "EmployerRegistration.EmployerUnitDto.DoingBusinessAsName", cssClass: "bold")
+            @Data(labelText: "Employer Account Number:", dataSource: "EmployerRegistration.EmployerDto?.EmployerId", cssClass: "bold")
+            @Data(labelText: "Reporting Type:",text: "Contributory", dataSource: "rtype", cssClass: "bold")
+        }
+        @using (Panel(headingText: "User Name", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            <p>Use the user name provided below to log in to the PFML system. After your initial login you will be required to change your password. Select the 'Home' button below to log in.</p>
+            @Data(labelText: "Username:", dataSource: "EmployerRegistration.EmployerDto.UserName", cssClass: "bold")
+        }
+        @using (Panel(headingText: "Quarterly Employment and Wage Detail Report Information", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            <p>This employer is required to submit quarterly Employment and Wage Detail reports. Employment and Wage Detail reports may be submitted using the user name and password set during this registration. Quarterly reports are due by the last day of the month following the end of the quarter. Complete and submit the reports with payments promptly. Interest charges and penalties are mandated by law on overdue contributions.</p>
+            <p>The information provided during registration indicates that an employment and wage detail report is required for the current quarter and all subsequent quarters.</p>
+            <p>You must provide information regarding the purchase of a business. You are required to furnish a copy of the purchase agreement, Bill of Sale, or other legal instrument used to document the acquisition.</p>
+            <p>You indicated that this employer is an out of state employer that is seeking to transfer experience history from another state. Contact State support team for information on how to complete this transfer.</p>
+        }
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+            @Button(transition: "Home", cssClass: "text-center")
+        }
+    }
+}

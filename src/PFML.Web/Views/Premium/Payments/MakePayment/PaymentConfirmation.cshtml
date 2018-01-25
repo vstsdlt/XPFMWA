@@ -1,0 +1,42 @@
+﻿@Html.Partial("EmployerHeaderWizard", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+@using (Form())
+{
+    @using (Panel(stateFilter: "PaymentConfirmation", headingText: "Payment Confirmation"))
+    {
+        @Data(labelText: "Employer Name:", dataSource: "emprName", cssClass: "bold", labelColumns: 3, controlColumns: 3)
+        @Data(labelText: "Employer Account Number:", dataSource: "emprAccountID", cssClass: "bold", labelColumns: 3, controlColumns: 3)
+        @Data(labelText: "Effective Date:", dataSource: "PaymentEffectiveDate", cssClass: "bold", labelColumns: 3, controlColumns: 3, formatter:Formatter.Date)
+        @Data(labelText: "Payment Confirmation #:", dataSource: "BankAccNumber", cssClass: "bold", labelColumns: 3, controlColumns: 3)
+        @Data(labelText: "Transaction Date:", dataSource: "PaymentEffectiveDate", cssClass: "bold", labelColumns: 3, controlColumns: 3, formatter: Formatter.Date)
+        @Data(labelText: "Payment Method:", dataSource: "CheckPaymentMethodType", cssClass: "bold", labelColumns: 3, controlColumns: 3)
+        @Data(labelText: "Transaction Time:", dataSource: "PaymentEffectiveDate", cssClass: "bold", labelColumns: 3, controlColumns: 3, formatter: Formatter.Time)
+        @Data(labelColumns: 3, controlColumns: 3)
+        @Data(labelText: "Remaining Balance:", dataSource: "BalanceAmount", cssClass: "bold", labelColumns: 3, controlColumns: 3, formatter: Formatter.Currency)
+        @Data(labelText: "Total Payment Amount:", dataSource: "PmtAmount", cssClass: "bold", labelColumns: 3, controlColumns: 3, formatter: Formatter.Currency)
+        <br /><br /><br /><br /><br />
+        @if (Machine["SaveBankInformation"].ToString().Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <p>&nbsp;&nbsp;&nbsp;  Thank you for your payment. Your bank information has been stored for future use.</p>
+        }
+        else
+        {
+            <p>&nbsp;&nbsp;&nbsp; Thank you for your payment.</p>
+        }
+        <p>&nbsp;&nbsp;&nbsp;  Print a copy of this page for your records.</p>
+        <p>&nbsp;&nbsp;&nbsp;  If you have a remaining balance you may make another payment by selecting “Make Payment”.</p>
+
+        @using (Panel(stateFilter: "PaymentConfirmation", borderVisible: false, panelLayout: PanelLayout.Inline))
+        {
+            <br />
+            @Button(text: "Home", transition: "Home")
+            if ((decimal)Machine["BalanceAmount"] > 0)
+            {
+                @Button(text: "Make Payment", transition: "MakePayment")
+            }
+        }
+    }
+
+
+
+}
