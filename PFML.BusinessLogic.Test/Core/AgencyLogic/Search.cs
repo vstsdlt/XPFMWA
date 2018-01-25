@@ -61,36 +61,36 @@ namespace PFML.BusinessLogic.Test
 
     /// <summary>
     /// Sample test class.
-    /// </summary>
+    ///// </summary>
     public class SampleTestWithXBehave : IClassFixture<TestFixture>
     {
-        
-        //xUnit example.
-        [Theory]
-        [InlineData(50, true)]
-        [InlineData(51, true)]
-        [InlineData(19, false)]
-        public void PersonCanDrinkTest(int age, bool expectedResult)
-        {
-            //******arrange******
-            //No need of actual datasource, just mock it.
-            var dataSource = new Mock<IDataSource>();
-            var person = new Person() { Age = age };
 
-            //In reality this function (GetUser) gets the user from datasource. 
-            //But here we dont really need to get it from the datasource.
-            dataSource.Setup(d => d.GetUser(default(int))).Returns(person);
+        ////xUnit example.
+        //[Theory]
+        //[InlineData(50, true)]
+        //[InlineData(51, true)]
+        //[InlineData(19, false)]
+        //public void PersonCanDrinkTest(int age, bool expectedResult)
+        //{
+        //    //******arrange******
+        //    //No need of actual datasource, just mock it.
+        //    var dataSource = new Mock<IDataSource>();
+        //    var person = new Person() { Age = age };
 
-            BusinessLogic bl = new BusinessLogic(dataSource.Object);
+        //    //In reality this function (GetUser) gets the user from datasource. 
+        //    //But here we dont really need to get it from the datasource.
+        //    dataSource.Setup(d => d.GetUser(default(int))).Returns(person);
 
-            //******act******
-            var result = bl.PersonCanDrink(default(int));
-            //LogHelper.Log("Person age is " + age.ToString() + " and can drink is " + result.ToString() + Environment.NewLine);
-            LogHelper.Log(LoggingLevel.Info, "Person age is " + age.ToString() + " and can drink is " + result.ToString(), null, this);
+        //    BusinessLogic bl = new BusinessLogic(dataSource.Object);
 
-            //******assert******
-            Assert.Equal(expectedResult, result);
-        }
+        //    //******act******
+        //    var result = bl.PersonCanDrink(default(int));
+        //    //LogHelper.Log("Person age is " + age.ToString() + " and can drink is " + result.ToString() + Environment.NewLine);
+        //    LogHelper.Log(LoggingLevel.Info, "Person age is " + age.ToString() + " and can drink is " + result.ToString(), null, this);
+
+        //    //******assert******
+        //    Assert.Equal(expectedResult, result);
+        //    //}
 
     }
 }
