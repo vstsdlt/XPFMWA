@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FACTS.Framework.Analysis" Version="2.0.6599.29909" />
+    <PackageReference Include="FACTS.Framework.Common" Version="2.0.6599.29909" />
+    <PackageReference Include="FACTS.Framework.Service" Version="2.0.6599.29909" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PFML.DAL\PFML.DAL.csproj" />
+    <ProjectReference Include="..\PFML.Shared\PFML.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

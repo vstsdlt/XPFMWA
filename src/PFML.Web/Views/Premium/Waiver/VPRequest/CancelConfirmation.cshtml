@@ -1,0 +1,8 @@
+﻿@using (Form())
+{
+	@using (Panel(headingText: "The entered information will be lost.Are you sure you want to Cancel ? " , panelLayout: PanelLayout.Inline, modalStyle: ModalStyle.Large, stateFilter: "CancelConfirmation", defaultLabelColumns: 0, defaultControlColumns: 5, cssClass: "text-center"))
+	{
+		@Button(transition: "Yes", text: "Yes", labelColumns: 0, controlColumns: 1)
+		@Button(transition: "No", text: "No", labelColumns: 1, controlColumns: 1)
+	}
+}

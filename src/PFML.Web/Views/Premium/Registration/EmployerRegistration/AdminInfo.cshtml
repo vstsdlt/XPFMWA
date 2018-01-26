@@ -1,0 +1,27 @@
+﻿@Html.Partial("WizardHeader", Machine["ListSection"], new ViewDataDictionary(this.ViewData) { { "current", (FACTS.Framework.Lookup.LookupCode)Machine["CurrentSection"] }, { "showHeader", (bool)Machine["ShowHeader"] } })
+
+@using (Form())
+{
+    @using (Panel(stateFilter: "AdminInfo", panelLayout: PanelLayout.Stacked,borderVisible:false))
+    {
+        @using (Panel(headingText: "Enter Administrator Information", defaultControlColumns: 4, defaultLabelColumns: 4))
+        {
+            <p>Enter information for the authorized administrator of this account.</p>
+            @TextBox(labelText:"First Name:", dataSource: "EmployerRegistration.EmployerContactDto.FirstName", formatter:Formatter.TextAlpha,looseValidation:true, required:"true")
+            @TextBox(labelText: "Last Name:", dataSource: "EmployerRegistration.EmployerContactDto.LastName", formatter: Formatter.TextAlpha, looseValidation: true, required: "true")
+            @TextBox(labelText: "Business Phone:", dataSource: "EmployerRegistration.EmployerContactDto.PhoneNumber", formatter: Formatter.Phone, required: "true", labelColumns: 4, controlColumns: 2)
+            @TextBox(labelText: "ext.", dataSource: "EmployerRegistration.EmployerContactDto.PhoneNumberExtn", formatter: Formatter.TextNumeric, labelColumns: 1, controlColumns: 1)
+            @TextBox(labelText: "Secondary Phone:", dataSource: "EmployerRegistration.EmployerContactDto.SecondaryPhoneNumber", formatter: Formatter.Phone, labelColumns: 4, controlColumns: 2)
+            @TextBox(labelText: "ext.", dataSource: "EmployerRegistration.EmployerContactDto.SecondaryPhoneNumberExtn", formatter: Formatter.TextNumeric, labelColumns: 1, controlColumns: 1)
+            @TextBox(labelText: "Administrator Title:", dataSource: "EmployerRegistration.EmployerContactDto.Title", required: "true")
+            @TextBox(labelText: "Username:", dataSource: "EmployerRegistration.EmployerDto.UserName", formatter: Formatter.TextAlphaNumeric, required: "true",maxLength:10)
+            @TextBox(labelText: "E-Mail:", dataSource: "EmployerRegistration.EmployerContactDto.Email", formatter: Formatter.Email)
+            @TextBox(labelText: "Re-Enter E-Mail:", formatter: Formatter.Email, dataSource: "ReEmail")
+        }
+        @using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, cssClass: "text-center"))
+        {
+            @Button(transition: "Previous")
+            @Button(transition: "Next")
+        }
+    }
+}

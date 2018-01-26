@@ -1,0 +1,50 @@
+﻿@using (Form())
+{
+    @using (Panel(headingText: "View Voluntary Plan Waiver", labelText: "VPWaiver_view", defaultLabelColumns: 0, defaultControlColumns: 12))
+    {
+        @using (Panel(headingText: "Voluntary Plan Details", panelLayout: PanelLayout.Inline, ignoreLayout: false, defaultLabelColumns: 0, defaultControlColumns: 12))
+        {
+            @Blank(labelColumns: 4, labelText: "Dates the Voluntary Plan is available to the employees in 2018")
+            @Blank(labelText: "StartDate:")
+            @Data(labelText: "", dataSource: "VPWaiverRequest.StartDate", formatter: Formatter.Date)
+            @Blank(labelText: "EndDate:")
+            @Data(labelText: "", dataSource: "VPWaiverRequest.EndDate", formatter: Formatter.Date)
+            @Blank(labelText: "")
+
+
+            <h6>
+                Leave Types
+            </h6>
+            @*@using (Panel(borderVisible: false, panelLayout: PanelLayout.Inline, labelText: ""))*@
+            @using (Panel(borderVisible: false, panelLayout: PanelLayout.Grid, defaultLabelColumns: 0, defaultControlColumns: 12))
+            {
+                @using (DataTable(dataSource: "VPWaiverRequest.VoluntaryPlanWaiverRequestTypes", searchable: false, dataTableHeight: DataTableHeight.Full, recordCountInfo: false))
+                {
+                    @DataTableColumn(columnName: "Types of Leave available", dataSource: "LeaveTypeCode", lookupName: LookupTable.WaiverLeaveType)
+                    @DataTableColumn(columnName: "Weeks available annualy", dataSource: "DurationInWeeksCode", lookupName: LookupTable.WaiverWeeksAvailable)
+                    @DataTableColumn(columnName: "Percentage of wages paid", dataSource: "PercentagePaid", formatter: Formatter.Number, formatDecimals: 2)
+                }
+            }
+
+            @Blank(labelText: "")
+            <h6>
+                Supporting Documents
+            </h6>
+            @using (Panel(borderVisible: false, panelLayout: PanelLayout.Grid, defaultLabelColumns: 0, defaultControlColumns: 12))
+            {
+                @using (DataTable(dataSource: "VPWaiverRequest.Form.FormAttachments", searchable: false, dataTableHeight: DataTableHeight.Full, recordCountInfo: false))
+                {
+                    @DataTableColumn(columnName: "DocumentName", dataSource: "Document.DocumentName")
+
+                    @DataTableColumn(columnName: "View", text: "View", targetDataSource: "View", transition: "View")
+
+                }
+            }
+        }
+
+        @Blank(labelText: "")
+
+        @Button(transition: "Close", controlColumns: 6, labelColumns: 6)
+
+    }
+}
